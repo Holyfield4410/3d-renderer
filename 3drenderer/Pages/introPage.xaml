@@ -1,0 +1,35 @@
+﻿<Page x:Class="_3drenderer.introPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3drenderer"
+        mc:Ignorable="d"
+        Title="Dynamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        Height="450" Width="800"
+        >
+
+    <Grid Background="Black">
+        <Image x:Name="intro_lines" HorizontalAlignment="Left" Height="444" VerticalAlignment="Top" Width="359" RenderTransformOrigin="0.355,0.447" Source="/into_lines.png"/>
+        <TextBlock x:Name="intro_title" HorizontalAlignment="Left" Margin="391,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Foreground="White" FontSize="48" Height="203" Width="389" FontFamily="Marcellus SC"><Run Text="Bring"/><LineBreak/><Run Text="designs to "/><LineBreak/><Run Text="life"/></TextBlock>
+        <TextBlock x:Name="intro_subtitle" HorizontalAlignment="Left" Margin="392,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Bahnschrift" Width="244" FontSize="14"><Run Text="Render your designs, sketches and "/><LineBreak/><Run Text="elevations into an accurate, virtual 3D "/><LineBreak/><Run Text="model."/><Run Text=" "/></TextBlock>
+
+        <Button x:Name="intro_start_button" Width="50"
+        Height="50" Content=">" Click="intro_start_button_Click" Foreground="Black" Background="Black" BorderBrush="Black" Cursor="Arrow"  >
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="White"
+                         StrokeThickness="2" Margin="305,167,-305,-167">
+                        </Ellipse>
+                        <TextBlock Margin="323,154,-323,-154" FontSize="48" FontFamily="Comic Sans MS">
+                            >
+                        </TextBlock>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+
+        </Button>
+
+    </Grid>
+</Page>

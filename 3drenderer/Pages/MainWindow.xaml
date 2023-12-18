@@ -1,0 +1,6 @@
+﻿<!-- MainWindow.xaml -->
+<Window x:Class="_3drenderer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="3D Renderer" Height="480" Width="640">
+</Window>
