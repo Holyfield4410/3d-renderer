@@ -1,5 +1,4 @@
-﻿// ShapeRenderer.cs
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 
 namespace _3drenderer
@@ -24,20 +23,17 @@ namespace _3drenderer
 
         public void InitializeScene(Shape shape)
         {
-            modelGroup.Children.Add(shape.CreateModel());
+            modelGroup.Children.Add(shape.createModel());
 
-            // Set up camera
             camera.Position = new Point3D(0, 0, 5);
             camera.LookDirection = new Vector3D(0, 0, -1);
             camera.UpDirection = new Vector3D(0, 1, 0);
             camera.FieldOfView = 45;
 
-            // Set up viewport
             Viewport3D viewport = new Viewport3D();
             viewport.Camera = camera;
             viewport.Children.Add(new ModelVisual3D { Content = modelGroup });
 
-            // Add viewport to the container grid
             containerGrid.Children.Add(viewport);
         }
 

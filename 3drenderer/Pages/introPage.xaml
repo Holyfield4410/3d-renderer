@@ -28,8 +28,6 @@
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
-
         </Button>
-
     </Grid>
 </Page>

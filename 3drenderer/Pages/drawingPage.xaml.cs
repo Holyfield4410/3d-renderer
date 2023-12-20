@@ -10,6 +10,7 @@ namespace _3drenderer
     public partial class drawingPage : Page
     {
         private bool isDrawingRectangle = false;
+        // Change point out to own coordinate class
         private Point startPoint;
         private Rectangle currentRectangle;
 
@@ -20,7 +21,6 @@ namespace _3drenderer
 
         private void RectangleTool_Click(object sender, RoutedEventArgs e)
         {
-            // Activate rectangle drawing mode
             isDrawingRectangle = true;
         }
 
@@ -28,11 +28,8 @@ namespace _3drenderer
         {
             if (isDrawingRectangle)
             {
-                // Start drawing a rectangle
                 startPoint = e.GetPosition(drawingCanvas);
-
-                // Remove existing rectangle if any
-                RemoveCurrentRectangle();
+                RemoveCurrentRectangle(); 
             }
         }
 
@@ -40,38 +37,33 @@ namespace _3drenderer
         {
             if (isDrawingRectangle)
             {
-                // End drawing a rectangle
                 Point endPoint = e.GetPosition(drawingCanvas);
-
-                // Create and add the rectangle to the canvas
+                // Maybe add own rectangle class instead
                 currentRectangle = new Rectangle
                 {
+                    // Math.Abs = Modulus
                     Width = Math.Abs(endPoint.X - startPoint.X),
                     Height = Math.Abs(endPoint.Y - startPoint.Y),
                     Stroke = Brushes.Black,
                     StrokeThickness = 2,
                 };
 
+                // finds which side comes first (compares to find min), positions it
                 Canvas.SetLeft(currentRectangle, Math.Min(startPoint.X, endPoint.X));
                 Canvas.SetTop(currentRectangle, Math.Min(startPoint.Y, endPoint.Y));
-
                 drawingCanvas.Children.Add(currentRectangle);
-
-                // Deactivate rectangle drawing mode
                 isDrawingRectangle = false;
             }
         }
 
         private void ClearCanvas_Click(object sender, RoutedEventArgs e)
         {
-            // Remove existing rectangle and clear the canvas
             RemoveCurrentRectangle();
             drawingCanvas.Children.Clear();
         }
 
         private void RemoveCurrentRectangle()
         {
-            // Remove existing rectangle if any
             if (currentRectangle != null)
             {
                 drawingCanvas.Children.Remove(currentRectangle);
@@ -81,18 +73,15 @@ namespace _3drenderer
 
         private void RenderButton_Click(object sender, RoutedEventArgs e)
         {
-            // Check if currentRectangle is null or its properties are not set
-            if (currentRectangle != null && !double.IsNaN(currentRectangle.Width) && !double.IsNaN(currentRectangle.Height))
+            if (currentRectangle != null)
             {
-                // Prompt the user for the depth value
+                // prompt parameter = message to user asking for input
                 double depth = GetUserInput("Enter depth for rendering:");
 
-                    // Navigate to the ShapeDisplayPage with width, height, and depth values
-
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Content = new shapeDisplayPage(currentRectangle.Width, currentRectangle.Height, depth);
-                    mainWindow.Show();
-                    Window.GetWindow(this).Close();
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Content = new shapeDisplayPage(currentRectangle.Width, currentRectangle.Height, depth);
+                mainWindow.Show();
+                Window.GetWindow(this).Close();
             }
             else
             {
@@ -100,26 +89,22 @@ namespace _3drenderer
             }
         }
 
-
-
-
         private double GetUserInput(string prompt)
         {
-            double userInput;
+            double depthInput;
             string input;
-
             do
             {
-                input = Microsoft.VisualBasic.Interaction.InputBox(prompt, "User Input", "10.0");
+                // https://stackoverflow.com/questions/97097/what-is-the-c-sharp-version-of-vb-nets-inputbox
+                input = Microsoft.VisualBasic.Interaction.InputBox(prompt, "Input depth", "1.0");
 
-                if (!double.TryParse(input, out userInput))
+                // out = store input in "depthInput" if parse correctly
+                if (!double.TryParse(input, out depthInput))
                 {
                     MessageBox.Show("Invalid input. Please enter a valid number.");
                 }
-
-            } while (!double.TryParse(input, out userInput));
-
-            return userInput;
+            } while (!double.TryParse(input, out depthInput));
+            return depthInput;
         }
     }
 }

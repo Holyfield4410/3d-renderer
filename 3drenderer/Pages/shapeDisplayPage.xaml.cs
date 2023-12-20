@@ -27,22 +27,20 @@ namespace _3drenderer
         double Height;
         double Depth;
 
+
         public shapeDisplayPage(double width, double height, double depth)
         {
             InitializeComponent();
             Width = width;
             Height = height;
             Depth = depth;
-            shapeRenderer = new ShapeRenderer(MainGrid);
+            shapeRenderer = new ShapeRenderer(ModelGrid);
             InitializeScene();
             StartRendering();
-            CreateToggleButton();
         }
 
         private void InitializeScene()
         {
-            // Prompt the user for input (you can use TextBoxes, sliders, or any other UI controls)
-
             Cuboid cuboid = new Cuboid(Width, Height, Depth);
             shapeRenderer.InitializeScene(cuboid);
         }
@@ -50,7 +48,7 @@ namespace _3drenderer
         private void StartRendering()
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(16); // 60 fps
+            timer.Interval = TimeSpan.FromMilliseconds(16); 
             timer.Tick += RenderFrame;
             timer.Start();
         }
@@ -60,24 +58,11 @@ namespace _3drenderer
             shapeRenderer.RenderFrame();
         }
 
-        private void CreateToggleButton()
-        {
-            ToggleButton toggleButton = new ToggleButton();
-            toggleButton.Content = "Toggle Rotation";
-            toggleButton.IsChecked = shapeRenderer.IsRotating;
-            toggleButton.Click += ToggleButton_Click;
-
-            StackPanel buttonPanel = new StackPanel();
-            buttonPanel.Orientation = Orientation.Horizontal;
-            buttonPanel.Margin = new Thickness(10);
-            buttonPanel.Children.Add(toggleButton);
-
-            MainGrid.Children.Add(buttonPanel);
-        }
-
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             shapeRenderer.ToggleRotation();
+            ToggleButton.IsChecked = shapeRenderer.IsRotating;
         }
+
     }
 }

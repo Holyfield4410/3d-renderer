@@ -8,7 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="shapeDisplayPage">
 
-    <Grid Name="MainGrid">
-        <!-- Contents go here -->
+    
+
+    <Grid Name="ModelGrid">
+        <ToggleButton x:Name="ToggleButton" Content="Toggle Rotation" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Height="30" Click="ToggleButton_Click"/>
     </Grid>
 </Page>

@@ -1,74 +1,65 @@
-﻿// Shape.cs
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace _3drenderer
 {
     public abstract class Shape
     {
-        public double Width { get; set; }
-        public double Height { get; set; }
-        public double Depth { get; set; }
-
-        public abstract Model3D CreateModel();
+        public double width { get; set; }
+        public double height { get; set; }
+        public double depth { get; set; }
+        public abstract Model3D createModel();
     }
 
-    // Modify the Cuboid class to accept width, height, and depth in the constructor
     public class Cuboid : Shape
     {
         public Cuboid(double width, double height, double depth)
         {
-            Width = width * 0.01;
-            Height = height * 0.01;
-            Depth = depth;
+            base.width = width * 0.01;
+            base.height = height * 0.01;
+            base.depth = depth;
         }
 
-        public override Model3D CreateModel()
+        public override Model3D createModel()
         {
             MeshGeometry3D cuboidMesh = new MeshGeometry3D();
-
-            // Vertices of the cuboid
-            cuboidMesh.Positions.Add(new Point3D(-Width / 2, -Height / 2, -Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(-Width / 2, -Height / 2, Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(-Width / 2, Height / 2, -Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(-Width / 2, Height / 2, Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(Width / 2, -Height / 2, -Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(Width / 2, -Height / 2, Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(Width / 2, Height / 2, -Depth / 2));
-            cuboidMesh.Positions.Add(new Point3D(Width / 2, Height / 2, Depth / 2));
-
-            // Indices for the cuboid's triangles
+            cuboidMesh.Positions.Add(new Point3D(-width / 2, -height / 2, -depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(-width / 2, -height / 2, depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(-width / 2, height / 2, -depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(-width / 2, height / 2, depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(width / 2, -height / 2, -depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(width / 2, -height / 2, depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(width / 2, height / 2, -depth / 2));
+            cuboidMesh.Positions.Add(new Point3D(width / 2, height / 2, depth / 2));
             Int32Collection indices = new Int32Collection
         {
-            // Front face
+            // front
             0, 2, 1,
             1, 2, 3,
 
-            // Back face
+            // back
             4, 5, 6,
             5, 7, 6,
 
-            // Left face
+            // left
             0, 1, 5,
             0, 5, 4,
 
-            // Right face
+            // right
             2, 6, 3,
             3, 6, 7,
 
-            // Top face
+            // top
             2, 0, 4,
             2, 4, 6,
 
-            // Bottom face
+            // bottom
             1, 3, 5,
             3, 7, 5
         };
-
             cuboidMesh.TriangleIndices = indices;
             SolidColorBrush blueBrush = new SolidColorBrush(Colors.Blue);
             DiffuseMaterial material = new DiffuseMaterial(blueBrush);
-
             return new GeometryModel3D(cuboidMesh, material);
         }
     }
